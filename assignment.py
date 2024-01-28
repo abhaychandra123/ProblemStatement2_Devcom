@@ -41,7 +41,7 @@ class Device:
             # Sometimes there's no new data
             return {}
         
-        print("obtaining failed")
+        # print("obtaining failed")
 
 
         rec = {
@@ -49,8 +49,8 @@ class Device:
             'data': {kee: str(uuid.uuid4()) for kee in _DATA_KEYS}
         };self.sent.append(rec)
         
-        print("Obtained data",end=" ")
-        print(rec)
+        #print("Obtained data",end=" ")
+        #print(rec)
         
         return rec
 
@@ -60,11 +60,12 @@ class Device:
         Identified by type `probe`. `from` is the index number from which the device is asking for the data."""
         if random.random() < 0.5:
             # Sometimes the device forgets to probe the SyncService
-            print("probing failed")
+            
+            #print("probing failed")
             return {}
 
         pr={'type': 'probe', 'dev_id': self._id, 'from': len(self.records)}
-        print("probing sucessful ",end=" ")
+        #print("probing sucessful ",end=" ")
         print(pr)
 
 
@@ -150,7 +151,7 @@ def testSyncing():
     print(len(syn.server_records))
     print([len(devices[i].records) for i in range(3)])
 
-    def check(list):
+    def check(list):  # this is to check the validity of our implementation by checking if all the devices have common records that have been given to them by the server using update for which they requested using probe.
         return all(i == list[0] for i in list)
 
     l=[devices[i].records for i in range(3)]
